@@ -60,15 +60,14 @@ void Graph::DFSInit(int s)
     bool *visited = new bool[V];
     for (int i = 0; i < V; i++)
         visited[i] = false;
-    DFSVisit( s, visited);
-    //cout << "count " << count << endl;
-    stack[++topSt] = count;
+    // DFSVisit( s, visited);
+    // //cout << "count " << count << endl;
+    // stack[++topSt] = count;
     for (int i = 1 ; i < V;i++){
         if (visited[i] == false){
             count = 0;
             DFSVisit( i, visited);
             stack[++topSt] = count;
-            cout << i << endl;
         }
     }
 }
@@ -91,50 +90,28 @@ int main()
 
     int numCase;
     char lenght;
+    int max = 0;
+    char sp;
     cin >> numCase;
     cout << endl;
     cin >> lenght;
-    //cout << (int)lenght<<endl;
-    //Graph g((int)'A'-(int)lenght); 
     Graph g((int)(lenght - 'A')+1); 
-    while (true){
-        string pair;
-        cin >> pair;
-        if (pair[0] == 'q') break;
-    
+    string pair;
+    while (getline(cin,pair) && !pair.empty()){
+        //if (pair.empty()) break;
         g.addEdge((int)(pair[0] - 'A' + 1),(int)((char)pair[1] - 'A') + 1);
     }
     g.DFSInit(1);
-    // Graph g(9); 
-    // g.addEdge(1,2);
-    // g.addEdge(2,3);
-    // g.addEdge(1,4);
-    // g.addEdge(4,5);
-    // g.addEdge(5,6);
-	// g.addEdge(6,7);
-	// g.addEdge(9,8);
-	//g.addEdge(,8);
-    //g.print();
-    // g.DFSInit(1);
-    cout << "top " << topSt << endl;
+    //cout << "top " << topSt << endl;
     for (int i = 0 ; i <= topSt;i++){
         cout << "Count : " << stack[i] << endl;
     }
-    // int first,second,start,target;
-    // cin >> n >> m;
-    // Graph g(n);
-    // for (int i = 0; i < m;i++){
-    //     cin >> first >> second;
-    //     g.addEdge(first, second);
-    // }
-    // cin >> start >> target;
-    // g.DFSInit(start);
-    // if (g.print(target)){
-    //     cout << "Yes";
-    // }
-    // else {
-    //     cout << "No";
-    // }
+    for (int i = 0 ; i <= topSt;i++){
+        if (max < stack[i]){
+            max = stack[i];
+        }
+    }
+    cout << max;
     return 0;
 }
 
