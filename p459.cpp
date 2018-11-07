@@ -7,12 +7,6 @@ using namespace std;
 
 int stack[50];
 int topSt = -1;
-/*
-โค้ด นี้ ดัดแปลง class Graph มาจาก
-Lacture 13: Graph Traversals
-จาก วิชา Data structure 
-ของ อ. นพดล ครับ
-*/
 
 // Graph class represents a undirected graph using adjacency list representation
 class Graph
@@ -66,12 +60,9 @@ void Graph::DFSInit(int s)
     bool *visited = new bool[V];
     for (int i = 0; i < V; i++)
         visited[i] = false;
-    
-    // Call the recursive helper function to print DFS traversal
     DFSVisit( s, visited);
     //cout << "count " << count << endl;
     stack[++topSt] = count;
-    cout << " top :"<< topSt << endl;
     for (int i = 1 ; i < V;i++){
         if (visited[i] == false){
             count = 0;
@@ -80,10 +71,6 @@ void Graph::DFSInit(int s)
             cout << i << endl;
         }
     }
-    for (int i = 1; i < V;i++){
-        cout << "V" <<visited[i] << " " << i << endl;
-    }
-    cout << "count " << count << endl;
 }
 
 
@@ -102,17 +89,33 @@ int main()
 {
      int n,m;
 
-    Graph g(9); 
-    g.addEdge(1,2);
-    g.addEdge(2,3);
-    g.addEdge(1,4);
-    g.addEdge(4,5);
-    g.addEdge(5,6);
-	g.addEdge(6,7);
-	g.addEdge(9,8);
+    int numCase;
+    char lenght;
+    cin >> numCase;
+    cout << endl;
+    cin >> lenght;
+    //cout << (int)lenght<<endl;
+    //Graph g((int)'A'-(int)lenght); 
+    Graph g((int)(lenght - 'A')+1); 
+    while (true){
+        string pair;
+        cin >> pair;
+        if (pair[0] == 'q') break;
+    
+        g.addEdge((int)(pair[0] - 'A' + 1),(int)((char)pair[1] - 'A') + 1);
+    }
+    g.DFSInit(1);
+    // Graph g(9); 
+    // g.addEdge(1,2);
+    // g.addEdge(2,3);
+    // g.addEdge(1,4);
+    // g.addEdge(4,5);
+    // g.addEdge(5,6);
+	// g.addEdge(6,7);
+	// g.addEdge(9,8);
 	//g.addEdge(,8);
     //g.print();
-    g.DFSInit(1);
+    // g.DFSInit(1);
     cout << "top " << topSt << endl;
     for (int i = 0 ; i <= topSt;i++){
         cout << "Count : " << stack[i] << endl;
