@@ -94,28 +94,27 @@ int main()
     cin >> numCase;
     cout << endl;
     cin >> lenght;
-    //cout << (int)lenght<<endl;
-    //Graph g((int)'A'-(int)lenght); 
     Graph g((int)(lenght - 'A')+1); 
     string pair;
     string kspace;
     getline(cin,kspace);
-    while (true){
+    while (numCase != 0){
         getline(cin,pair);
         if (pair == "") {
-            break;
+            g.DFSInit(1);
+            for (int i = 0 ; i <= topSt;i++){
+                if (max < stack[i]){
+                    max = stack[i];
+                }
+            }
+            cout << max << endl;
+            numCase--;
+            continue;
         }
+        if (numCase == 0) break;
         //cout <<"CIN num " <<(int)pair[0];
         g.addEdge((int)(pair[0] - 'A' + 1),(int)((char)pair[1] - 'A') + 1);
     }
-    g.DFSInit(1);
-    //cout << "top " << topSt << endl;
-    for (int i = 0 ; i <= topSt;i++){
-        if (max < stack[i]){
-            max = stack[i];
-        }
-    }
-    cout << max;
     return 0;
 }
 
