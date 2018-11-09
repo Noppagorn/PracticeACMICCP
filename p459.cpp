@@ -5,7 +5,7 @@
 using namespace std;
 
 
-int stack[50];
+int stack[200];
 int topSt = -1;
 
 // Graph class represents a undirected graph using adjacency list representation
@@ -15,8 +15,6 @@ class Graph
     list<int> *adj; // Pointer to an array containing adjacency lists
     int count = 0;
     void DFSVisit(int s, bool visited[]);  // A recursive function used by DFS
-    int arrTra[20] = {0};
-    int top = -1;
 public:
     Graph(int V);   // Constructor
     void addEdge(int v, int w); // Function to add an edge to graph
@@ -40,8 +38,6 @@ void Graph::addEdge(int v, int w)
 void Graph::DFSVisit(int s, bool visited[])
 {
     // Mark the current node as visited and print it
-    visited[s] = true;
-    arrTra[++top] = s;
     
     // Recurse for all the vertices adjacent to this vertex
     list<int>::iterator i;
@@ -60,26 +56,12 @@ void Graph::DFSInit(int s)
     bool *visited = new bool[V];
     for (int i = 0; i < V; i++)
         visited[i] = false;
-    // DFSVisit( s, visited);
-    // //cout << "count " << count << endl;
-    // stack[++topSt] = count;
     for (int i = 1 ; i < V;i++){
         if (visited[i] == false){
             count = 0;
             DFSVisit( i, visited);
             stack[++topSt] = count;
         }
-    }
-}
-
-
-void Graph::print(){
-    for (int i = 0; i < V;i++){
-        cout << "NOde " << i << endl;
-        for (auto const& x : adj[i]){
-            cout << "-> " << x;
-        }
-        cout << endl;
     }
 }
 
@@ -93,27 +75,30 @@ int main()
     int max = 0;
     cin >> numCase;
     cout << endl;
-    cin >> lenght;
-    Graph g((int)(lenght - 'A')+1); 
-    string pair;
-    string kspace;
-    getline(cin,kspace);
+
     while (numCase != 0){
-        getline(cin,pair);
-        if (pair == "") {
-            g.DFSInit(1);
-            for (int i = 0 ; i <= topSt;i++){
-                if (max < stack[i]){
-                    max = stack[i];
+        cin >> lenght;
+        Graph g((int)(lenght - 'A')+1); 
+        string pair;
+        string kspace;
+        getline(cin,kspace);
+        while(true){
+            getline(cin,pair);
+            if (pair == "") {
+                g.DFSInit(1);
+                for (int i = 0 ; i <= topSt;i++){
+                    if (max < stack[i]){
+                        max = stack[i];
+                    }
                 }
+                cout << max << endl;
+                max = 0;
+                break;
             }
-            cout << max << endl;
-            numCase--;
-            continue;
+            g.addEdge((int)(pair[0] - 'A' + 1),(int)((char)pair[1] - 'A') + 1);
         }
-        if (numCase == 0) break;
-        //cout <<"CIN num " <<(int)pair[0];
-        g.addEdge((int)(pair[0] - 'A' + 1),(int)((char)pair[1] - 'A') + 1);
+        numCase--;
+        cout << "numcase" <<numCase << endl; 
     }
     return 0;
 }
