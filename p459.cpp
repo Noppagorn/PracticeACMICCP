@@ -43,7 +43,6 @@ void Graph::DFSVisit(int s, bool visited[])
     list<int>::iterator i;
     for (i = adj[s].begin(); i != adj[s].end(); ++i){
         if (!visited[*i]){
-            count++;
             DFSVisit(*i, visited);
         }
     }
@@ -58,7 +57,7 @@ void Graph::DFSInit(int s)
         visited[i] = false;
     for (int i = 0 ; i < V;i++){
         if (visited[i] == false){
-            count = 0;
+            count++;
             DFSVisit( i, visited);
             stack[++topSt] = count;
         }
@@ -69,12 +68,12 @@ void Graph::DFSInit(int s)
 int main()
 {
      int n,m;
-
     int numCase;
     char lenght;
     int max = 0;
     cin >> numCase;
-    cout << endl;
+    int maxStack[200];
+    int topMax = -1;
 
     while (numCase != 0){
         cin >> lenght;
@@ -91,16 +90,19 @@ int main()
                         max = stack[i];
                     }
                 }
-                cout <<  max << endl;
-                cout << "\n";
+                //maxStack[++topMax] = max;
+                cout << max << "\n";
+                //cout << "\n";
                 max = 0;
                 topSt = -1;
                 break;
             }
-            g.addEdge((int)(pair[0] - 'A' + 1),(int)((char)pair[1] - 'A') + 1);
+            g.addEdge((int)(pair[0] - 'A'),(int)((char)pair[1] - 'A'));
         }
         numCase--;
-        //cout << "numcase" <<numCase << endl; 
+        if (numCase){
+            cout << '\n';
+        }
     }
     return 0;
 }
