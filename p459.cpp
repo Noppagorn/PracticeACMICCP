@@ -38,7 +38,7 @@ void Graph::addEdge(int v, int w)
 void Graph::DFSVisit(int s, bool visited[])
 {
     // Mark the current node as visited and print it
-    
+    visited[s] = true;
     // Recurse for all the vertices adjacent to this vertex
     list<int>::iterator i;
     for (i = adj[s].begin(); i != adj[s].end(); ++i){
@@ -56,7 +56,7 @@ void Graph::DFSInit(int s)
     bool *visited = new bool[V];
     for (int i = 0; i < V; i++)
         visited[i] = false;
-    for (int i = 1 ; i < V;i++){
+    for (int i = 0 ; i < V;i++){
         if (visited[i] == false){
             count = 0;
             DFSVisit( i, visited);
@@ -91,14 +91,16 @@ int main()
                         max = stack[i];
                     }
                 }
-                cout << max << endl;
+                cout <<  max << endl;
+                cout << "\n";
                 max = 0;
+                topSt = -1;
                 break;
             }
             g.addEdge((int)(pair[0] - 'A' + 1),(int)((char)pair[1] - 'A') + 1);
         }
         numCase--;
-        cout << "numcase" <<numCase << endl; 
+        //cout << "numcase" <<numCase << endl; 
     }
     return 0;
 }
