@@ -1,6 +1,6 @@
 //p11244.c
 
-#include <stdio.h>
+#include <iostream>
 #include <stdbool.h>
 
 int count_star(int star[][2],int topStar){
@@ -34,6 +34,10 @@ int count_star(int star[][2],int topStar){
 }
 
 int main(){
+    //file
+    FILE * fp;
+    fp = fopen ("output.txt","a");
+
     int row = -1,column = -1;
     char line[101];
     int star[100][2];
@@ -51,9 +55,11 @@ int main(){
             }
         }
         if (row == 0 && column == 0)break;
-        printf("%d\n",count_star(star,topStar));
+        int temp = count_star(star,topStar);
+        printf("%d\n",temp);
+        fprintf (fp, "%d\n",temp);
         topStar = -1;
     }
-
+    fclose(fp);
     return 0;
 }
