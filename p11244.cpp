@@ -36,11 +36,10 @@ int count_star(int star[][2],int topStar){
 int main(){
     //file
     FILE * fp;
-    fp = fopen ("output.txt","a");
-
+    fp = fopen ("output.txt","w+");
     int row = -1,column = -1;
-    char line[101];
-    int star[100][2];
+    char line[110];
+    int star[110][2];
     int topStar = -1;
     while (row != 0 && column != 0){
         scanf("%d %d",&row,&column);
@@ -53,6 +52,7 @@ int main(){
                     star[topStar][1] = j+1; 
                 }
             }
+            line = NULL;
         }
         if (row == 0 && column == 0)break;
         int temp = count_star(star,topStar);
